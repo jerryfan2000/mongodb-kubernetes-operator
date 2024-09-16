@@ -6,9 +6,6 @@ WORKDIR /workspace
 
 COPY . .
 
-ARG TARGETOS
-ARG TARGETARCH
-
 # Set environment variables
 ENV GO_VERSION=1.23.1
 ENV GOROOT=/usr/local/go
@@ -36,7 +33,7 @@ ENV OPERATOR=manager \
     USER_NAME=mongodb-kubernetes-operator
 
 RUN mkdir /workspace
-COPY --from=builder /workspace/manager /workspace/
+COPY --from=builder /workspace/manager .
 COPY --from=builder /workspace/build/bin /usr/local/bin
 
 RUN  /usr/local/bin/user_setup
